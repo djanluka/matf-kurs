@@ -1,0 +1,25 @@
+{
+  "name": "matf-levi9-zadatak",
+  "version": "1.0.0",
+  "description": "Changed from feature README.md",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djanluka/matf-levi9-zadatak.git"
+  },
+  "author": "Boris Cvitak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djanluka/matf-levi9-zadatak/issues"
+  },
+  "homepage": "https://github.com/djanluka/matf-levi9-zadatak#readme",
+  "dependencies": {
+    "create-react-app": "^4.0.1"
+  },
+  "devDependencies": {
+    "npx": "^10.2.2"
+  }
+}
