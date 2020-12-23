@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
+import TableProducts from './TableProducts.js'
+
 import './App.css'
 
 export default class App extends Component {
@@ -14,6 +16,7 @@ export default class App extends Component {
         this.state = {
             naziv: '',
             opis: '',
+            prikaz: false
         };
         
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -38,6 +41,11 @@ export default class App extends Component {
     };
     
     render() {
+        if (this.state.prikaz) {
+            console.log(this.state.prikaz)
+            return <TableProducts />
+        }
+        else 
         return (
             <Container component="main" maxWidth="xs">
               <CssBaseline />
@@ -87,6 +95,17 @@ export default class App extends Component {
                   >
                     Dodaj
                   </Button>
+                  
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    className={'submit'}
+                    onClick={() => this.setState({prikaz: true})}
+                  >
+                    Prikaži proizvode
+                  </Button>
                 </form>
               </div>
             </Container>
@@ -94,108 +113,3 @@ export default class App extends Component {
     }
 }
 
-
-
-/*
-import React, { Component } from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-
-
-
-export default class App extends Component  {
-
-    constructor(props) {
-      super(props);
-
-      this.state = {
-        rows: []
-      };
-      
-      this.renderMyData = this.renderMyData.bind(this);
-      this.handleDelete = this.handleDelete.bind(this);
-    }
-
-    componentDidMount() {
-        this.renderMyData();
-    }
-    
-
-    renderMyData(){
-        fetch('/admin/proizvodi')
-            .then((response) => response.json())
-            .then((responseJson) => {
-                let rows = []
-                for (const [key, value] of Object.entries(responseJson)) {
-                    const obj = {id: parseInt(key), naziv: value.naziv, opis: value.opis}
-                    rows.push(obj)
-                }
-                this.setState({rows: rows })
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-    }
-    
-    handleDelete = async (id) => {
-        const response = await fetch('/admin/proizvodi', {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({id: id}),
-            });
-        
-        response.json()
-            .then((responseJson) => {
-                let rows = []
-                for (const [key, value] of Object.entries(responseJson)) {
-                    const obj = {id: parseInt(key), naziv: value.naziv, opis: value.opis}
-                    rows.push(obj)
-                }
-                this.setState({rows: rows })
-            })
-    }
-    
-
-    render(){
-        if (this.state.rows !== 0) 
-               return (
-                <TableContainer component={Paper}>
-                  <Table className={'table'} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell >Id</TableCell>
-                        <TableCell >Naziv</TableCell>
-                        <TableCell >Opis</TableCell>
-                        <TableCell >Obrisi</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {this.state.rows.map((row) => (
-                        <TableRow key={row.id}>
-                          <TableCell >{row.id}</TableCell>
-                          <TableCell >{row.naziv}</TableCell>
-                          <TableCell >{row.opis}</TableCell>
-                          <TableCell >
-                            <Button variant="contained" color="secondary" onClick={()=>this.handleDelete(row.id)}> Delete</Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              )
-        else return (
-                 <h1> Loading </h1>
-            )
-    }
-}
-
-*/
