@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
     "client": "cd ../matf-levi9-zadatak/ && npm start",
-    "start": "concurrently --kill-others-on-fail \"npm run dev\" \"npm run client\" "
+    "start": "concurrently --kill-others-on-fail \"npm run dev\" \"npm run client\" ",
+    "s": "nodemon app.js"
   },
   "repository": {
     "type": "git",
