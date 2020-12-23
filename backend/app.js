@@ -7,25 +7,40 @@ const port = 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-products = new Map()
+mapProducts = new Map()
+products = [];
+ids = new Set()
+
+const numProducts = 1000000;
+
+function hasProducts(data) {
+    return products.some(prod => prod.naziv === data.naziv && prod.opis === data.opis);
+}
+
 
 app.post('/admin/unos-novog-proizvoda', (req, res) => {
-  users.push(req.body)
-  console.log('Lista proizvoda:')
-  users.forEach(u => console.log(u))
-  console.log()
+    
+    if(hasProducts(req.body)) return;
+    
+    let id = Math.floor(Math.random() * numProducts);
+    
+    while (ids.has(id)) id = Math.floor(Math.random() * numProducts);
+    
+    mapProducts.set(id, req.body);
+    products.push(req.body);
+    console.log(mapProducts);
 })
 
-
-products.set(0, {naziv: 'Mleko', opis: 'Slatko'})
-products.set(1, {naziv: 'Voda', opis: 'Slatko'})
-products.set(2, {naziv: 'Sok', opis: 'Slatko'})
-products.set(3, {naziv: 'Jogurt', opis: 'Slatko'})
-
+/*
+mapProducts.set(0, {naziv: 'Mleko', opis: 'Slatko'})
+mapProducts.set(1, {naziv: 'Voda', opis: 'Slatko'})
+mapProducts.set(2, {naziv: 'Sok', opis: 'Slatko'})
+mapProducts.set(3, {naziv: 'Jogurt', opis: 'Slatko'})
+*/
   
 function createJSONData() {
     let data = {}
-    for (const [key, value] of products)
+    for (const [key, value] of mapProducts)
         data[key] = value
     return data;
 }
@@ -35,9 +50,18 @@ app.get('/admin/proizvodi', (req, res) => {
     res.send(data)
 })
 
+function deleteProducts(id) {
+    ids.delete(id);
+    
+    const prod = mapProducts.get(id);
+    products = products.filter(p => p.naziv !== prod.naziv && p.opis !== prod.opis);
+    
+    mapProducts.delete(id)
+}
+
 app.delete('/admin/proizvodi', (req, res) => {
     const id = req.body.id;
-    products.delete(id)
+    deleteProducts(id)
     data = createJSONData();
     res.send(data)
 })

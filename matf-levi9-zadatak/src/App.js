@@ -1,4 +1,4 @@
-/*
+
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 
 import './App.css'
 
-class App extends Component {
+export default class App extends Component {
     constructor() {
         super();
         this.state = {
@@ -94,12 +94,9 @@ class App extends Component {
     }
 }
 
-export default App;
-*/
 
 
-
-
+/*
 import React, { Component } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -200,3 +197,5 @@ export default class App extends Component  {
             )
     }
 }
+
+*/
